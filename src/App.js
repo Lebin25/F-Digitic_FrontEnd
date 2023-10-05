@@ -10,6 +10,9 @@ import SingleProduct from './pages/SingleProduct';
 import Blog from './pages/Blog';
 import SingleBlog from './pages/SingleBlog';
 import Login from './pages/Login';
+import Forgotpassword from './pages/Forgotpassword';
+import Signup from './pages/Signup';
+import Resetpassword from './pages/Resetpassword';
 
 function App() {
    return <>
@@ -24,6 +27,9 @@ function App() {
                <Route path="compare-product" element={<CompareProduct />} />
                <Route path="wishlist" element={<Wishlist />} />
                <Route path="login" element={<Login />} />
+               <Route path="signup" element={<Signup />} />
+               <Route path="forgot-password" element={<Forgotpassword />} />
+               <Route path="reset-password" element={<Resetpassword />} />
             </Route>
          </Routes>
       </BrowserRouter>
