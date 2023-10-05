@@ -137,7 +137,8 @@ const SingleProduct = () => {
                         </div>
                         <div className='d-flex gap-10 align-items-center my-3'>
                            <h3 className='product-heading'>Product Link :</h3>
-                           <a href="javascript:void(0);" onClick={() => {
+                           <a href="#" onClick={(e) => {
+                              e.preventDefault();
                               copyToClipboard(
                                  "https://consumer.huawei.com/content/dam/huawei-cbg-site/common/mkt/pdp/wearables/watch-3-pro-leather/img/one/huawei-watch-3-pro-kv.png"
                               )
@@ -163,7 +164,7 @@ const SingleProduct = () => {
                </div>
             </div>
          </Container>
-         <Container id='review' class1="reviews-wrapper home-wrapper-2">
+         <Container id="review" class1="reviews-wrapper home-wrapper-2">
             <div className="row">
                <div className="col-12">
                   <h3>Reviews</h3>
