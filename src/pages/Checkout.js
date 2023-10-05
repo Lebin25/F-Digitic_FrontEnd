@@ -31,7 +31,7 @@ const Checkout = () => {
                      <form action="" className='d-flex gap-15 flex-wrap justify-content-between'>
                         <div className='w-100'>
                            <select name="" className='form-control form-select' id="">
-                              <option value="" selected disabled>Select Country</option>
+                              <option value="" disabled>Select Country</option>
                            </select>
                         </div>
                         <div className='flex-grow-1'>
@@ -51,7 +51,7 @@ const Checkout = () => {
                         </div>
                         <div className='flex-grow-1'>
                            <select name="" className='form-control form-select' id="">
-                              <option value="" selected disabled>Select State</option>
+                              <option value="" disabled>Select State</option>
                            </select>
                         </div>
                         <div className='flex-grow-1'>
