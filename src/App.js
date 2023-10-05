@@ -9,6 +9,7 @@ import OurStore from './pages/OurStore';
 import SingleProduct from './pages/SingleProduct';
 import Blog from './pages/Blog';
 import SingleBlog from './pages/SingleBlog';
+import Login from './pages/Login';
 
 function App() {
    return <>
@@ -22,6 +23,7 @@ function App() {
                <Route path="blog/:id" element={<SingleBlog />} />
                <Route path="compare-product" element={<CompareProduct />} />
                <Route path="wishlist" element={<Wishlist />} />
+               <Route path="login" element={<Login />} />
             </Route>
          </Routes>
       </BrowserRouter>
