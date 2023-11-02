@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BreadCrumb from '../components/BreadCrumb'
 import ReactStars from "react-rating-stars-component";
 import Meta from '../components/Meta'
@@ -8,15 +8,50 @@ import Color from '../components/Color';
 import { TbGitCompare } from 'react-icons/tb'
 import { AiOutlineHeart } from 'react-icons/ai'
 import Container from '../components/Container';
-
-
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAProduct } from '../features/products/productSlice';
+import { toast } from 'react-toastify';
+import { addProdToCart, getUserCart } from '../features/user/userSlice';
 
 const SingleProduct = () => {
+   const [color, setColor] = useState(null)
+   const [quantity, setQuantity] = useState(1)
+   const [alreadyAdded, setAlreadyAdded] = useState(false)
+   const location = useLocation();
+   const navigate = useNavigate()
+   const getProductId = location.pathname.split('/')[2]
+   const dispatch = useDispatch();
+   const productState = useSelector(state => state.product?.singleproduct)
+   const cartState = useSelector(state => state.auth?.cartProducts)
+   useEffect(() => {
+      dispatch(getAProduct(getProductId))
+      dispatch(getUserCart())
+   }, [])
+
+   useEffect(() => {
+      for (let index = 0; index < cartState?.length; index++) {
+         if (getProductId === cartState[index]?.productId?._id) {
+            setAlreadyAdded(true)
+         }
+      }
+   }, [])
+
+   const uploadCart = () => {
+      if (color === null) {
+         toast.error('Please Choose Color')
+         return false
+      } else {
+         dispatch(addProdToCart({ productId: productState?._id, quantity, color, price: productState?.price }))
+         navigate('/cart')
+      }
+   }
+
    const props = {
-      width: 400,
+      width: 594,
       height: 600,
       zoomWidth: 600,
-      img: "https://consumer.huawei.com/content/dam/huawei-cbg-site/common/mkt/pdp/wearables/watch-3-pro-leather/img/one/huawei-watch-3-pro-kv.png"
+      img: productState?.images[0]?.url ? productState?.images[0]?.url : "https://consumer.huawei.com/content/dam/huawei-cbg-site/common/mkt/pdp/wearables/watch-3-pro-leather/img/one/huawei-watch-3-pro-kv.png"
    };
 
    const [orderedProduct, setorderedProduct] = useState(true);
@@ -42,56 +77,52 @@ const SingleProduct = () => {
                      </div>
                   </div>
                   <div className="other-product-images d-flex flex-wrap gap-15">
-                     <div>
-                        <img src="https://consumer.huawei.com/content/dam/huawei-cbg-site/common/mkt/pdp/wearables/watch-3-pro-leather/img/one/huawei-watch-3-pro-kv.png" className='img-fluid' alt="" />
-                     </div>
-                     <div>
-                        <img src="https://consumer.huawei.com/content/dam/huawei-cbg-site/common/mkt/pdp/wearables/watch-3-pro-leather/img/one/huawei-watch-3-pro-kv.png" className='img-fluid' alt="" />
-                     </div>
-                     <div>
-                        <img src="https://consumer.huawei.com/content/dam/huawei-cbg-site/common/mkt/pdp/wearables/watch-3-pro-leather/img/one/huawei-watch-3-pro-kv.png" className='img-fluid' alt="" />
-                     </div>
-                     <div>
-                        <img src="https://consumer.huawei.com/content/dam/huawei-cbg-site/common/mkt/pdp/wearables/watch-3-pro-leather/img/one/huawei-watch-3-pro-kv.png" className='img-fluid' alt="" />
-                     </div>
+                     {productState?.images.map((item, index) => {
+                        return (
+                           <div key={index}>
+                              <img src={item?.url} className='img-fluid' alt="" />
+                           </div>
+                        )
+                     })}
                   </div>
                </div>
                <div className="col-6">
                   <div className="main-product-details">
                      <div className='border-bottom'>
                         <h3 className='title'>
-                           Smart Watch With Advanced Health Monitoring, Fitness Tracking</h3>
+                           {productState?.title}
+                        </h3>
                      </div>
                      <div className="border-bottom py-3">
-                        <p className="price">$ 250.00</p>
+                        <p className="price">{productState?.price} đ</p>
                         <div className="d-flex align-items-center gap-10">
                            <ReactStars
                               count={5}
                               size={24}
-                              value={4}
+                              value={productState?.totalrating}
                               edit={false}
                               activeColor="#ffd700"
                            />
-                           <p className='mb-0 t-review'>(2 Reviews)</p>
+                           <p className='mb-0 t-review'>{productState?.ratings.length} reviews</p>
                         </div>
                         <a className='review-btn' href="#review">Write a review</a>
                      </div>
                      <div className="py-3">
                         <div className='d-flex gap-10 align-items-center my-2'>
                            <h3 className='product-heading'>Type :</h3>
-                           <p className='product-data'>Watch</p>
+                           <p className='product-data'>{productState?.category}</p>
                         </div>
                         <div className='d-flex gap-10 align-items-center my-2'>
                            <h3 className='product-heading'>Brand :</h3>
-                           <p className='product-data'>Havells</p>
+                           <p className='product-data'>{productState?.brand}</p>
                         </div>
                         <div className='d-flex gap-10 align-items-center my-2'>
                            <h3 className='product-heading'>Category :</h3>
-                           <p className='product-data'>Watch</p>
+                           <p className='product-data'>{productState?.category}</p>
                         </div>
                         <div className='d-flex gap-10 align-items-center my-2'>
                            <h3 className='product-heading'>Tags :</h3>
-                           <p className='product-data'>Watch</p>
+                           <p className='product-data'>{productState?.tags}</p>
                         </div>
                         <div className='d-flex gap-10 align-items-center my-2'>
                            <h3 className='product-heading'>Availability :</h3>
@@ -107,16 +138,42 @@ const SingleProduct = () => {
                            </div>
                         </div>
                         <div className='d-flex gap-10 flex-column mt-2 mb-3'>
-                           <h3 className='product-heading'>Color :</h3>
-                           <Color />
+                           {
+                              alreadyAdded == false && <>
+                                 <h3 className='product-heading'>Color :</h3>
+                                 <Color setColor={setColor} colorData={productState?.color} />
+                              </>
+                           }
                         </div>
                         <div className='d-flex align-items-center gap-15 flex-row mt-2 mb-3'>
-                           <h3 className='product-heading'>Quantity :</h3>
-                           <div className=''>
-                              <input type="number" name="" min={1} max={10} className='form-control' style={{ width: "70px" }} id="" />
-                           </div>
-                           <div className='d-flex align-items-center gap-30 ms-5'>
-                              <button className='button border-0' type='submit'>Add To Cart</button>
+                           {
+                              alreadyAdded == false && <>
+                                 <h3 className='product-heading'>Quantity :</h3>
+                                 <div className=''>
+                                    <input
+                                       type="number"
+                                       name=""
+                                       min={1}
+                                       max={10}
+                                       className='form-control'
+                                       style={{ width: "70px" }}
+                                       id=""
+                                       onChange={(e) => setQuantity(e.target.value)}
+                                       value={quantity}
+                                    />
+                                 </div>
+                              </>
+                           }
+                           <div className={alreadyAdded ? "ms-0" : "ms-5" + ' d-flex align-items-center gap-30 ms-5'}>
+                              <button
+                                 className='button border-0'
+                                 type='submit'
+                                 onClick={() => { alreadyAdded ? navigate('/cart') : uploadCart() }}
+                              >
+                                 {
+                                    alreadyAdded ? "Go To Cart" : "Add To Cart"
+                                 }
+                              </button>
                               <button className='button signup'>Buy It Now</button>
                            </div>
                         </div>
@@ -137,10 +194,9 @@ const SingleProduct = () => {
                         </div>
                         <div className='d-flex gap-10 align-items-center my-3'>
                            <h3 className='product-heading'>Product Link :</h3>
-                           <a href="#" onClick={(e) => {
-                              e.preventDefault();
+                           <a href="javascript:void(0);" onClick={() => {
                               copyToClipboard(
-                                 "https://consumer.huawei.com/content/dam/huawei-cbg-site/common/mkt/pdp/wearables/watch-3-pro-leather/img/one/huawei-watch-3-pro-kv.png"
+                                 window.location.href
                               )
                            }}>
                               Copy Product Link
@@ -157,14 +213,12 @@ const SingleProduct = () => {
                   <h4>Description</h4>
                   <div className="bg-white p-3">
 
-                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi eligendi eaque soluta minus illum recusandae rem eum fugiat, amet placeat labore dolores quaerat aperiam deleniti nostrum non, sequi enim laborum.
-                     </p>
+                     <p dangerouslySetInnerHTML={{ __html: productState?.description }}></p>
                   </div>
                </div>
             </div>
          </Container>
-         <Container id="review" class1="reviews-wrapper home-wrapper-2">
+         <Container id='review' class1="reviews-wrapper home-wrapper-2">
             <div className="row">
                <div className="col-12">
                   <h3>Reviews</h3>
