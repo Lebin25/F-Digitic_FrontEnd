@@ -7,7 +7,7 @@ import { getUserProductWishlist } from '../features/user/userSlice';
 import { addToWishlist } from '../features/products/productSlice';
 
 const Wishlist = () => {
-   const dispatch = useDispatch()
+   const dispatch = useDispatch();
    useEffect(() => {
       dispatch(getUserProductWishlist())
    }, [])
@@ -18,7 +18,7 @@ const Wishlist = () => {
       dispatch(addToWishlist(id))
       setTimeout(() => {
          dispatch(getUserProductWishlist())
-      }, 300)
+      }, 500)
    }
 
    return (
@@ -28,12 +28,12 @@ const Wishlist = () => {
          <Container class1="wishlist-wrapper home-wrapper-2 py-5">
             <div className="row">
                {
-                  wishlistState?.length === 0 && (
+                  wishlistState && wishlistState?.length === 0 && (
                      <div className='text-center fs-3'>No Data</div>
                   )
                }
                {
-                  wishlistState?.map((item, index) => {
+                  wishlistState && wishlistState?.map((item, index) => {
                      return (
                         <div className="col-3" key={index}>
                            <div className="wishlist-card position-relative">
