@@ -903,3 +903,11 @@ footer .input-group-text {
 }
 
 /* Shipping Page Ends */
+
+
+
+
+.error {
+   color: red;
+   font-size: 12px;
+}
