@@ -9,11 +9,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { registerUser } from '../features/user/userSlice'
 import { useNavigate } from 'react-router-dom'
 
+const regexPhoneNumber = /(0[3|5|7|8|9])+([0-9]{8})\b/g;
+
 let signupSchema = yup.object({
    firstname: yup.string().required('First Name is required'),
    lastname: yup.string().required('Last Name is required'),
    email: yup.string().email('Email is not valid').required('Email is required'),
-   mobile: yup.string().required('Mobile Number is required'),
+   mobile: yup.string().required('Mobile Number is required').matches(regexPhoneNumber, 'Mobile Number is not valid'),
    password: yup.string().required('Password is required'),
 });
 
