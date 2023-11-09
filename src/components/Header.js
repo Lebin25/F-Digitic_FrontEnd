@@ -15,6 +15,12 @@ const Header = () => {
          setTotal(sum)
       }
    }, [cartState])
+
+   const handleLogout = () => {
+      localStorage.clear()
+      window.location.reload()
+   }
+
    return <>
       <header className="header-top-strip py-3">
          <div className="container-xxl">
@@ -72,7 +78,7 @@ const Header = () => {
                         </Link>
                      </div>
                      <div>
-                     <Link to={authState?.user === null ? '/login' : ''} className='d-flex align-items-center gap-10 text-white'>
+                     <Link to={authState?.user === null ? '/login' : '/my-profile'} className='d-flex align-items-center gap-10 text-white'>
                            <img src="images/user.svg" alt="user" />
                            {
                               authState?.user === null ? <p className='mb-0'>
@@ -122,8 +128,10 @@ const Header = () => {
                         <div className="d-flex align-items-center gap-15">
                            <NavLink to='/'>Home</NavLink>
                            <NavLink to='/product'>Our Store</NavLink>
+                           <NavLink to='/my-orders'>My Orders</NavLink>
                            <NavLink to='/blogs'>Blogs</NavLink>
                            <NavLink to='/contact'>Contact</NavLink>
+                           <button onClick={handleLogout} className='border border-0 bg-transparent text-white text-uppercase' type='button'>Logout</button>
                         </div>
                      </div>
                   </div>
