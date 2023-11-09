@@ -33,7 +33,7 @@ const Login = () => {
    const { user, isLoading, isError, isSuccess, message } = authState.auth;
 
    useEffect(() => {
-      if (isSuccess) {
+      if (user !== null && isSuccess) {
          navigate('/')
       }
       else {

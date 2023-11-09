@@ -2,9 +2,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify';
 import { productService } from './productService';
 
-export const getAllProduct = createAsyncThunk('product/get', async (thunkAPI) => {
+export const getAllProduct = createAsyncThunk('product/get', async (data, thunkAPI) => {
    try {
-      return await productService.getProducts()
+      return await productService.getProducts(data)
    } catch (error) {
       return thunkAPI.rejectWithValue(error)
    }
@@ -21,6 +21,14 @@ export const getAProduct = createAsyncThunk('product/getAProduct', async (id, th
 export const addToWishlist = createAsyncThunk('product/wishlist', async (prodId, thunkAPI) => {
    try {
       return await productService.addToWishList(prodId)
+   } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+   }
+})
+
+export const addRating = createAsyncThunk('product/rating', async (data, thunkAPI) => {
+   try {
+      return await productService.rateProduct(data)
    } catch (error) {
       return thunkAPI.rejectWithValue(error)
    }
@@ -83,6 +91,25 @@ export const productSlice = createSlice({
             state.singleproduct = action.payload;
          })
          .addCase(getAProduct.rejected, (state, action) => {
+            state.isLoading = false;
+            state.isError = true;
+            state.isSuccess = false;
+            state.message = action.error;
+         })
+         .addCase(addRating.pending, (state) => {
+            state.isLoading = true;
+         })
+         .addCase(addRating.fulfilled, (state, action) => {
+            state.isError = false;
+            state.isLoading = false;
+            state.isSuccess = true;
+            state.message = "Rating Product Successfully";
+            state.rating = action.payload;
+            if (state.isSuccess) {
+               toast.success("Rating Product Successfully")
+            }
+         })
+         .addCase(addRating.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
             state.isSuccess = false;
