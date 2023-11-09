@@ -37,17 +37,16 @@ const Signup = () => {
       },
    });
 
-   const authState = useSelector((state) => state);
-   const { user, isLoading, isError, isSuccess, message } = authState.auth;
+   const authState = useSelector((state) => state.auth);
 
    useEffect(() => {
-      if (isSuccess) {
-         navigate('/')
+      if (authState.createdUser !== null && authState.isSuccess) {
+         navigate('/login')
       }
       else {
          navigate('')
       }
-   }, [user, isError, isSuccess, isLoading])
+   }, [authState])
 
    return (
       <>

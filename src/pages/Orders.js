@@ -5,14 +5,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getOrders } from '../features/user/userSlice'
 
 const Orders = () => {
+   const getTokenFromLocalStorage = localStorage.getItem('customer') ? JSON.parse(localStorage.getItem('customer')) : null
+
+   const config2 = {
+      headers: {
+         'Authorization': `Bearer ${getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""}`,
+         'Accept': 'application/json'
+      }
+   }
+
    const dispatch = useDispatch()
    const orderState = useSelector(state => state.auth.getOrderedProduct?.orders)
 
    useEffect(() => {
-      dispatch(getOrders())
+      dispatch(getOrders(config2))
    }, [])
-
-   console.log(orderState);
 
    return (
       <>

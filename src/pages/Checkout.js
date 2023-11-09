@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { GoArrowLeft } from 'react-icons/go'
-import watch from '../images/watch.jpg'
 import Container from '../components/Container'
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 import axios from 'axios'
 import { config } from '../utils/axiosconfig'
-import { createAnOrder } from '../features/user/userSlice'
+import { createAnOrder, deleteUserCart, getOrders, getUserCart, resetState } from '../features/user/userSlice'
 
 let shippingSchema = yup.object({
    firstName: yup.string().required('First Name is required'),
@@ -23,12 +22,12 @@ let shippingSchema = yup.object({
 const Checkout = () => {
    const dispatch = useDispatch();
    const cartState = useSelector(state => state.auth?.cartProducts)
+   const authState = useSelector(state => state.auth)
    const [totalAmount, setTotalAmount] = useState(null)
    const [shippingInfo, setShippingInfo] = useState(null)
    const [paymentInfo, setPaymentInfo] = useState({ razorpayPaymentId: '', razorpayOrderId: '' })
    const [cartProductState, setCartProductState] = useState([])
-
-   console.log(paymentInfo, shippingInfo);
+   const navigate = useNavigate()
 
    useEffect(() => {
       let sum = 0;
@@ -37,6 +36,25 @@ const Checkout = () => {
          setTotalAmount(sum)
       }
    }, [cartState])
+
+   const getTokenFromLocalStorage = localStorage.getItem('customer') ? JSON.parse(localStorage.getItem('customer')) : null
+
+   const config2 = {
+      headers: {
+         'Authorization': `Bearer ${getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""}`,
+         'Accept': 'application/json'
+      }
+   }
+   useEffect(() => {
+      dispatch(getUserCart(config2))
+   }, [])
+
+   useEffect(() => {
+      if (authState?.orderedProduct?.order !== null && authState?.orderedProduct?.success === true) {
+         dispatch(getOrders())
+         navigate('/my-orders')
+      }
+   }, [authState])
 
    const formik = useFormik({
       initialValues: {
@@ -115,18 +133,20 @@ const Checkout = () => {
 
             const result = await axios.post("http://localhost:5000/api/user/order/paymentVerification", data, config);
 
-            setPaymentInfo({
-               razorpayPaymentId: response.razorpay_payment_id,
-               razorpayOrderId: response.razorpay_order_id,
+            await setPaymentInfo({
+               razorpayPaymentId: result.razorpay_payment_id,
+               razorpayOrderId: result.razorpay_order_id,
             })
 
-            dispatch(createAnOrder({
+            await dispatch(createAnOrder({
                totalPrice: totalAmount,
                totalPriceAfterDiscount: totalAmount,
                orderItems: cartProductState,
                paymentInfo,
                shippingInfo
             }))
+            await dispatch(deleteUserCart(config2))
+            dispatch(resetState())
          },
          prefill: {
             name: "F-Digitic",
