@@ -144,7 +144,7 @@ const Header = () => {
                            <img src={cart} alt="cart" />
                            <div className="d-flex flex-column gap-10">
                               <span className='badge bg-white text-dark'>{cartState?.length ? cartState?.length : 0}</span>
-                              <p className='mb-0'>{total ? total : 0} đ</p>
+                              <p className='mb-0'>$ {total ? total : 0}</p>
                            </div>
                         </Link>
                      </div>

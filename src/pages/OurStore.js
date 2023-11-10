@@ -4,6 +4,7 @@ import Meta from '../components/Meta'
 import ReactStars from "react-rating-stars-component";
 import ProductCard from "../components/ProductCard"
 import Color from '../components/Color';
+import { RiFilterOffLine } from 'react-icons/ri'
 import Container from '../components/Container';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProduct } from '../features/products/productSlice';
@@ -43,6 +44,14 @@ const OurStore = () => {
       dispatch(getAllProduct({ sort, tag, brand, category, minPrice, maxPrice }))
    }, [sort, tag, brand, category, minPrice, maxPrice])
 
+   const clearFilter = () => {
+      setBrand(null)
+      setTag(null)
+      setCategory(null)
+      setMinPrice(null)
+      setMaxPrice(null)
+   }
+
    return (
       <>
          <Meta title={"Our Store"} />
@@ -51,9 +60,12 @@ const OurStore = () => {
             <div className="row">
                <div className="col-3">
                   <div className='filter-card mb-3'>
-                     <h3 className="filter-title">
-                        Shop By Categories
-                     </h3>
+                     <div className='d-flex justify-content-between'>
+                        <h3 className="filter-title">
+                           Shop By Categories
+                        </h3>
+                        <RiFilterOffLine className='fs-4' onClick={() => clearFilter()} />
+                     </div>
                      <div>
                         <ul className='ps-0'>
                            {

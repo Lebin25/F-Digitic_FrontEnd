@@ -83,7 +83,7 @@ const Cart = () => {
                                  </div>
                               </div>
                               <div className='cart-col-2'>
-                                 <h5 className="price">{item?.price} đ</h5>
+                                 <h5 className="price">$ {item?.price}</h5>
                               </div>
                               <div className='cart-col-3 d-flex align-items-center gap-15'>
                                  <div>
@@ -103,7 +103,7 @@ const Cart = () => {
                                  </div>
                               </div>
                               <div className='cart-col-4'>
-                                 <h5 className="price">{item?.price * item?.quantity} đ</h5>
+                                 <h5 className="price">$ {item?.price * item?.quantity}</h5>
                               </div>
                            </div>
                         )
@@ -116,7 +116,7 @@ const Cart = () => {
                      {
                         (totalAmount !== null || totalAmount !== 0) &&
                         <div className='d-flex flex-column align-items-end'>
-                           <h4>SubTotal: {totalAmount} đ</h4>
+                           <h4>SubTotal: $ {totalAmount}</h4>
                            <p>Taxes and shipping calculated at checkout</p>
                            <Link to='/checkout' className='button'>Checkout</Link>
                         </div>

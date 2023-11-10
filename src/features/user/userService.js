@@ -30,8 +30,8 @@ const login = async (userData) => {
    }
 }
 
-const getUserWishlist = async () => {
-   const response = await axios.get(`${base_url}user/wishlist`, config)
+const getUserWishlist = async (data) => {
+   const response = await axios.get(`${base_url}user/wishlist`, data)
    if (response.data) {
       return response.data
    }

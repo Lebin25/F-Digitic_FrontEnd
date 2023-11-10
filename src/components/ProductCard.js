@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactStars from "react-rating-stars-component";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import wish from '../images/wish.svg';
 import prodcompare from '../images/prodcompare.svg';
 import watch from '../images/smartwatch.avif';
@@ -11,12 +11,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToWishlist } from '../features/products/productSlice'
 
 const ProductCard = (props) => {
+   const getTokenFromLocalStorage = localStorage.getItem('customer') ? JSON.parse(localStorage.getItem('customer')) : null
+
+   const config2 = {
+      headers: {
+         'Authorization': `Bearer ${getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""}`,
+         'Accept': 'application/json'
+      }
+   }
+
    const { grid, data } = props
    const dispatch = useDispatch()
+   const navigate = useNavigate()
    let location = useLocation();
 
    const addProdToWishlist = (id) => {
-      dispatch(addToWishlist(id));
+      dispatch(addToWishlist({ id: id, config2: config2 }));
+      navigate('/wishlist')
    }
 
    return (
