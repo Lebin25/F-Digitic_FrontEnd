@@ -29,7 +29,7 @@ const Cart = () => {
 
    useEffect(() => {
       if (productUpdateDetail !== null) {
-         dispatch(updateCartProduct({ cartItemId: productUpdateDetail?.cartItemId, quantity: productUpdateDetail?.quantity }))
+         dispatch(updateCartProduct({ cartItemId: productUpdateDetail?.cartItemId, quantity: productUpdateDetail?.quantity, config2: config2 }))
          setTimeout(() => {
             dispatch(getUserCart(config2))
          }, 200)

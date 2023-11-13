@@ -9,6 +9,7 @@ import view from '../images/view.svg';
 import addcart from '../images/add-cart.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToWishlist } from '../features/products/productSlice'
+import { getUserProductWishlist } from '../features/user/userSlice';
 
 const ProductCard = (props) => {
    const getTokenFromLocalStorage = localStorage.getItem('customer') ? JSON.parse(localStorage.getItem('customer')) : null
@@ -27,6 +28,7 @@ const ProductCard = (props) => {
 
    const addProdToWishlist = (id) => {
       dispatch(addToWishlist({ id: id, config2: config2 }));
+      dispatch(getUserProductWishlist(config2));
       navigate('/wishlist')
    }
 

@@ -59,14 +59,14 @@ const removeProductFromCart = async (data) => {
 }
 
 const updateProductFromCart = async (cartDetail) => {
-   const response = await axios.delete(`${base_url}user/update-product-cart/${cartDetail.cartItemId}/${cartDetail.quantity}`, config)
+   const response = await axios.delete(`${base_url}user/update-product-cart/${cartDetail.cartItemId}/${cartDetail.quantity}`, cartDetail.config2)
    if (response.data) {
       return response.data
    }
 }
 
 const createOrder = async (orderDetail) => {
-   const response = await axios.post(`${base_url}user/cart/create-order`, orderDetail, config)
+   const response = await axios.post(`${base_url}user/cart/create-order`, orderDetail, orderDetail.config2)
    if (response.data) {
       return response.data
    }

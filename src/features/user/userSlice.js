@@ -283,7 +283,7 @@ export const authSlice = createSlice({
             state.isSuccess = false;
             state.message = action.error;
             if (state.isSuccess == false) {
-               toast.error('Something Went Wrong!')
+               toast.error('Something Went Wrong! Maybe the Product is out stock, try again later!')
             }
          })
          .addCase(getOrders.pending, (state) => {

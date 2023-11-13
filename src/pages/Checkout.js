@@ -109,7 +109,7 @@ const Checkout = () => {
          return;
       }
 
-      const result = await axios.post('http://localhost:5000/api/user/order/checkout', { amount: totalAmount + 5 }, config)
+      const result = await axios.post('http://localhost:5000/api/user/order/checkout', { amount: totalAmount + 5 }, config2)
       if (!result) {
          alert('Something Went Wrong')
          return;
@@ -131,7 +131,7 @@ const Checkout = () => {
                razorpayOrderId: response.razorpay_order_id,
             };
 
-            const result = await axios.post("http://localhost:5000/api/user/order/paymentVerification", data, config);
+            const result = await axios.post("http://localhost:5000/api/user/order/paymentVerification", data, config2);
 
             await setPaymentInfo({
                razorpayPaymentId: result.razorpay_payment_id,
@@ -143,7 +143,8 @@ const Checkout = () => {
                totalPriceAfterDiscount: totalAmount,
                orderItems: cartProductState,
                paymentInfo,
-               shippingInfo
+               shippingInfo,
+               config2: config2
             }))
             await dispatch(deleteUserCart(config2))
             dispatch(resetState())
