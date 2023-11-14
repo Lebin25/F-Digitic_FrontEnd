@@ -169,7 +169,7 @@ const SingleProduct = () => {
                         </div>
                         <div className='d-flex gap-10 align-items-center my-2'>
                            <h3 className='product-heading'>Availability :</h3>
-                           <p className='product-data'>In Stock</p>
+                           <p className='product-data'>{productState?.quantity > 0 ? "In Stock" : "Out Stock"}</p>
                         </div>
                         <div className='d-flex gap-10 flex-column mt-2 mb-3'>
                            <h3 className='product-heading'>Size :</h3>
@@ -210,7 +210,7 @@ const SingleProduct = () => {
                               </>
                            }
                            <div className={alreadyAdded ? "ms-0" : "ms-5" + ' d-flex align-items-center gap-30 ms-5'}>
-                              {productState?.quantity !== 0 ? <button
+                              {productState?.quantity > 0 ? <button
                                  className='button border-0'
                                  type='submit'
                                  onClick={() => { alreadyAdded ? navigate('/cart') : uploadCart() }}
@@ -218,9 +218,9 @@ const SingleProduct = () => {
                                  {
                                     alreadyAdded ? "Go To Cart" : "Add To Cart"
                                  }
-                              </button> : <button className="button border-0" type="button" disabled>Out of stock</button>
+                              </button> : <button className="button border-0" type="button" disabled>Out Stock</button>
                               }
-                              {productState?.quantity == 0 ? "" : <button className='button signup'>Buy It Now</button>}
+                              {productState?.quantity <= 0 ? "" : <button className='button signup'>Buy It Now</button>}
 
                            </div>
                         </div>
