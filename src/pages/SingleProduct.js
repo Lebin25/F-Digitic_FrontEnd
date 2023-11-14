@@ -199,7 +199,7 @@ const SingleProduct = () => {
                               </>
                            }
                            <div className={alreadyAdded ? "ms-0" : "ms-5" + ' d-flex align-items-center gap-30 ms-5'}>
-                              <button
+                              {productState?.quantity !== 0 ? <button
                                  className='button border-0'
                                  type='submit'
                                  onClick={() => { alreadyAdded ? navigate('/cart') : uploadCart() }}
@@ -207,8 +207,10 @@ const SingleProduct = () => {
                                  {
                                     alreadyAdded ? "Go To Cart" : "Add To Cart"
                                  }
-                              </button>
-                              <button className='button signup'>Buy It Now</button>
+                              </button> : <button className="button border-0" type="button" disabled>Out of stock</button>
+                              }
+                              {productState?.quantity == 0 ? "" : <button className='button signup'>Buy It Now</button>}
+
                            </div>
                         </div>
                         <div className='d-flex align-items-center gap-15'>
