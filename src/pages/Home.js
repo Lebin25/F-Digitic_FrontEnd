@@ -3,7 +3,6 @@ import ReactStars from "react-rating-stars-component";
 import { Link, useNavigate } from 'react-router-dom'
 import Marquee from "react-fast-marquee";
 import BlogCard from '../components/BlogCard';
-import ProductCard from '../components/ProductCard';
 import SpecialProduct from '../components/SpecialProduct';
 import Container from '../components/Container';
 import { services } from '../utils/Data';
@@ -12,11 +11,7 @@ import { getAllBlog } from '../features/blogs/blogSlice'
 import moment from 'moment'
 import { getAllProduct, addToWishlist } from '../features/products/productSlice';
 import wish from '../images/wish.svg';
-import prodcompare from '../images/prodcompare.svg';
-import watch from '../images/smartwatch.avif';
-import watch2 from '../images/smartwatch2.avif';
 import view from '../images/view.svg';
-import addcart from '../images/add-cart.svg';
 
 
 const Home = () => {
@@ -39,10 +34,10 @@ const Home = () => {
          <div className="row">
             <div className="col-6">
                <div className="main-banner position-relative">
-                  <img src="images/main-banner-1.jpg" className='img-fluid rounded-3' alt="main-banner" />
+                  <img src="images/banner-1.jpg" className='img-fluid rounded-3' alt="main-banner" />
                   <div className="main-banner-content position-absolute">
                      <h4>SUPERCHARGED FOR PROS.</h4>
-                     <h5>iPad S13+ Pro.</h5>
+                     <h5>iPad gen9</h5>
                      <p>From $999.00 or $41.62/mo.</p>
                      <Link className='button'>BUY NOW</Link>
                   </div>
@@ -54,7 +49,7 @@ const Home = () => {
                      <img src="images/catbanner-01.jpg" className='img-fluid rounded-3' alt="main-banner" />
                      <div className="small-banner-content position-absolute">
                         <h4>BEST SALE</h4>
-                        <h5>Laptops Max</h5>
+                        <h5>Laptops</h5>
                         <p>From $1699.00 <br /> or $64.62/mo.</p>
                      </div>
                   </div>
@@ -62,7 +57,7 @@ const Home = () => {
                      <img src="images/catbanner-02.jpg" className='img-fluid rounded-3' alt="main-banner" />
                      <div className="small-banner-content position-absolute">
                         <h4>15% OFF</h4>
-                        <h5>Smartwatch 7</h5>
+                        <h5>Smartwatchs</h5>
                         <p>Shop the latest band <br /> styles and colors.</p>
                      </div>
                   </div>

@@ -142,7 +142,7 @@ const SingleProduct = () => {
                            <ReactStars
                               count={5}
                               size={24}
-                              value={productState?.totalrating}
+                              value={productState?.totalrating.toString()}
                               edit={false}
                               activeColor="#ffd700"
                            />
@@ -274,24 +274,24 @@ const SingleProduct = () => {
                      <div className="review-head d-flex justify-content-between align-items-end">
                         <div>
                            <h4 className='mb-2'>Customer Reviews</h4>
-                           <div className='d-flex align-items-center gap-10'>
+                           {/* <div className='d-flex align-items-center gap-10'>
                               <ReactStars
                                  count={5}
                                  size={24}
-                                 value={4}
+                                 value={productState?.totalrating}
                                  edit={false}
                                  activeColor="#ffd700"
                               />
-                              <p className='mb-0'>Based on 2 Reviews</p>
-                           </div>
+                              <p className='mb-0'>Based on {productState?.ratings.length} Reviews</p>
+                           </div> */}
                         </div>
-                        {
+                        {/* {
                            orderedProduct && (
                               <div>
                                  <a className='text-dark text-decoration-underline' href=""> Write a Review</a>
                               </div>
                            )
-                        }
+                        } */}
                      </div>
                      <div className="review-form py-4">
                         <h4 className='mb-2'>Write a Review</h4>
@@ -331,7 +331,7 @@ const SingleProduct = () => {
                               return (
                                  <div className="review" key={index}>
                                     <div className="d-flex gap-10 align-items-center">
-                                       <h6 className='mb-0'>{item?.postedby}</h6>
+                                       <h6 className='mb-0'>{item?.postedby.firstname + " " + item?.postedby.lastname}</h6>
                                        <ReactStars
                                           count={5}
                                           size={24}
