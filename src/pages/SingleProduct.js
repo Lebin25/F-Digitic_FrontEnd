@@ -24,7 +24,7 @@ const SingleProduct = () => {
       }
    }
 
-   const [color, setColor] = useState(null)
+   const [selectedColor, setSelectedColor] = useState(null);
    const [quantity, setQuantity] = useState(1)
    const [alreadyAdded, setAlreadyAdded] = useState(false)
    const location = useLocation();
@@ -49,11 +49,11 @@ const SingleProduct = () => {
    }, [])
 
    const uploadCart = () => {
-      if (color === null) {
+      if (selectedColor === null) {
          toast.error('Please Choose Color')
          return false
       } else {
-         dispatch(addProdToCart({ productId: productState?._id, quantity, color, price: productState?.price, config2: config2 }))
+         dispatch(addProdToCart({ productId: productState?._id, quantity, color: selectedColor, price: productState?.price, config2: config2 }))
          navigate('/cart')
       }
    }
@@ -181,12 +181,14 @@ const SingleProduct = () => {
                            </div>
                         </div>
                         <div className='d-flex gap-10 flex-column mt-2 mb-3'>
-                           {
-                              alreadyAdded == false && <>
-                                 <h3 className='product-heading'>Color :</h3>
-                                 <Color setColor={setColor} colorData={productState?.color} />
-                              </>
-                           }
+                           <h3 className='product-heading'>Color: </h3>
+                           <div className="d-flex flex-wrap gap-15">
+                              {
+                                 alreadyAdded == false && <>
+                                    <Color setColor={setSelectedColor} colorData={productState?.color} />
+                                 </>
+                              }
+                           </div>
                         </div>
                         <div className='d-flex align-items-center gap-15 flex-row mt-2 mb-3'>
                            {
