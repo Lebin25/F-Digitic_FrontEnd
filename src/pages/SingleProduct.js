@@ -99,7 +99,7 @@ const SingleProduct = () => {
          toast.error("Please Write Review for Product")
          return false;
       } else {
-         dispatch(addRating({ star: star, comment: comment, prodId: getProductId }))
+         dispatch(addRating({ star: star, comment: comment, prodId: getProductId, config2: config2 }))
          setTimeout(() => {
             dispatch(getAProduct(getProductId))
          }, 100);
@@ -137,7 +137,7 @@ const SingleProduct = () => {
                         </h3>
                      </div>
                      <div className="border-bottom py-3">
-                        <p className="price">{productState?.price} đ</p>
+                        <p className="price">$ {productState?.price}</p>
                         <div className="d-flex align-items-center gap-10">
                            <ReactStars
                               count={5}
@@ -240,7 +240,8 @@ const SingleProduct = () => {
                            <a href="javascript:void(0);" onClick={() => {
                               copyToClipboard(
                                  window.location.href
-                              )
+                              );
+                              toast.info('Copied Product\'s Link Successfully!')
                            }}>
                               Copy Product Link
                            </a>

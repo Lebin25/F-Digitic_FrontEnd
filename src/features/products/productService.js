@@ -26,7 +26,7 @@ const addToWishList = async (data) => {
 }
 
 const rateProduct = async (data) => {
-   const response = await axios.put(`${base_url}product/rating`, data, config)
+   const response = await axios.put(`${base_url}product/rating`, { star: data.star, comment: data.comment, prodId: data.prodId }, data.config2)
    if (response.data) {
       return response.data
    }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import BreadCrumb from '../components/BreadCrumb'
 import Meta from '../components/Meta'
 import BlogCard from "../components/BlogCard"
@@ -9,6 +9,16 @@ import moment from 'moment'
 
 const Blog = () => {
    const blogState = useSelector((state) => state?.blog?.blog)
+   const [categories, setCategories] = useState([])
+
+   useEffect(() => {
+      let categories = []
+      for (let index = 0; index < blogState.length; index++) {
+         const element = blogState[index];
+         categories.push(element.category)
+      }
+      setCategories(categories)
+   }, [blogState])
 
    const dispatch = useDispatch()
    useEffect(() => {
@@ -28,10 +38,11 @@ const Blog = () => {
                      </h3>
                      <div>
                         <ul className='ps-0'>
-                           <li>Watch</li>
-                           <li>Tv</li>
-                           <li>Camera</li>
-                           <li>Laptop</li>
+                           {
+                              categories && [...new Set(categories)].map((item, index) => {
+                                 return <li key={index}>{item}</li>
+                              })
+                           }
                         </ul>
                      </div>
                   </div>

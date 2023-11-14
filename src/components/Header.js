@@ -86,7 +86,7 @@ const Header = () => {
             <div className="row align-items-center">
                <div className="col-2">
                   <h1>
-                     <Link className='text-white'>F-Digitic</Link>
+                     <Link to='/' className='text-white'>F-Digitic</Link>
                   </h1>
                </div>
                <div className="col-5">
@@ -161,13 +161,13 @@ const Header = () => {
                   <div className="menu-bottom d-flex align-items-center gap-30">
                      <div>
                         <div className="dropdown">
-                           <button className="btn btn-secondary dropdown-toggle bg-transparent border-0 gap-15 d-flex align-items-center" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                           <button className="btn btn-secondary bg-transparent border-0 gap-15 d-flex align-items-center" type="button" id="" aria-expanded="false">
                               <img src={menu} alt="menu" />
                               <span className='me-5 inline-block'>
                                  Shop Categories
                               </span>
                            </button>
-                           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                           <ul className="dropdown-menu" aria-labelledby="">
                               <li><Link className="dropdown-item text-white" to="">Action</Link></li>
                               <li><Link className="dropdown-item text-white" to="">Another action</Link></li>
                               <li><Link className="dropdown-item text-white" to="">Something else here</Link></li>
