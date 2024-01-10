@@ -235,7 +235,7 @@ const Home = () => {
                   <img src="images/famous.webp" className='img-fluid' alt="famous" />
                   <div className="famous-content position-absolute">
                      <h5>Big Screen</h5>
-                     <h6>Smart Watch Series 7</h6>
+                     <h6>Apple Watch Series 9</h6>
                      <p>From $399or $16.62/mo. for 24 mo.*</p>
                   </div>
                </div>
@@ -255,7 +255,7 @@ const Home = () => {
                   <img src="images/famous-03.webp" className='img-fluid' alt="famous" />
                   <div className="famous-content position-absolute">
                      <h5 className='text-dark'>smartphones</h5>
-                     <h6 className='text-dark'>Smartphone 13 Pro.</h6>
+                     <h6 className='text-dark'>Iphone 15 Pro.</h6>
                      <p className='text-dark'>Now in Green. From $999.00 or $41.62/mo. for 24 mo. Footnote*</p>
                   </div>
                </div>
