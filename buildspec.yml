@@ -1,0 +1,14 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - echo "Install package"
+      - npm i
+  build:
+    commands:
+      - echo "Run build"
+      - npm run build
+  post_build:
+    commands:
+      - echo "Push build to S3"
+      - aws s3 cp /build s3://fdigitic-fe/ --recursive

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+// test
 const BlogCard = (props) => {
    const { id, title, description, date, image } = props;
    return (
