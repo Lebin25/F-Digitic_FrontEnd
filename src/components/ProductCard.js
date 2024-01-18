@@ -39,7 +39,7 @@ const ProductCard = (props) => {
                     return (
                         <div
                             key={index}
-                            className={`${location.pathname == "/product" ? `gr-${grid}` : "col-3"} `}
+                            className={`${location.pathname === "/product" ? `gr-${grid}` : "col-3"} `}
                         >
                             <div
                                 className="product-card position-relative">
@@ -51,7 +51,7 @@ const ProductCard = (props) => {
                                     </button>
                                 </div>
                                 <div className="product-image">
-                                    <img src={item?.images[0]?.url} className='img-fluid mx-auto' alt="product image" width={220} />
+                                    <img src={item?.images[0]?.url} className='img-fluid mx-auto' alt={item?.title} width={220} />
                                 </div>
                                 <div className="product-details">
                                     <h6 className="brand">{item?.brand}</h6>
@@ -63,7 +63,7 @@ const ProductCard = (props) => {
                                         edit={false}
                                         activeColor="#ffd700"
                                     />
-                                    <p className={`description ${grid == 12 ? "d-block" : "d-none"}`}
+                                    <p className={`description ${grid === 12 ? "d-block" : "d-none"}`}
                                         dangerouslySetInnerHTML={{ __html: item?.description }}
                                     >
                                     </p>

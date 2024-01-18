@@ -187,7 +187,7 @@ const SingleProduct = () => {
                                     <h3 className='product-heading'>Color: </h3>
                                     <div className="d-flex flex-wrap gap-15">
                                         {
-                                            alreadyAdded == false && <>
+                                            alreadyAdded === false && <>
                                                 <Color setColor={setSelectedColor} colorData={productState?.color} />
                                             </>
                                         }
@@ -195,7 +195,7 @@ const SingleProduct = () => {
                                 </div>
                                 <div className='d-flex align-items-center gap-15 flex-row mt-2 mb-3'>
                                     {
-                                        alreadyAdded == false && <>
+                                        alreadyAdded === false && <>
                                             <h3 className='product-heading'>Quantity :</h3>
                                             <div className=''>
                                                 <input
@@ -212,7 +212,7 @@ const SingleProduct = () => {
                                             </div>
                                         </>
                                     }
-                                    <div className={alreadyAdded ? "ms-0" : "ms-5" + ' d-flex align-items-center gap-30 ms-5'}>
+                                    <div className={alreadyAdded ? "ms-0 d-flex align-items-center gap-30 ms-5" : "ms-5 d-flex align-items-center gap-30 ms-5"}>
                                         {productState?.quantity > 0 ? <button
                                             className='button border-0'
                                             type='submit'
@@ -229,12 +229,12 @@ const SingleProduct = () => {
                                 </div>
                                 <div className='d-flex align-items-center gap-15'>
                                     <div>
-                                        <a href="">
-                                            <TbGitCompare className='fs-5 me-2' /> Add to Conmpare
+                                        <a href="https://www.facebook.com/profile.php?id=61555427590683">
+                                            <TbGitCompare className='fs-5 me-2' /> Add to Compare
                                         </a>
                                     </div>
                                     <div>
-                                        <a href="">
+                                        <a href="https://www.facebook.com/profile.php?id=61555427590683">
                                             <AiOutlineHeart className='fs-5 me-2' /> Add to Wishlist</a>
                                     </div>
                                 </div>
@@ -244,10 +244,9 @@ const SingleProduct = () => {
                                 </div>
                                 <div className='d-flex gap-10 align-items-center my-3'>
                                     <h3 className='product-heading'>Product Link :</h3>
-                                    <a href="javascript:void(0);" onClick={() => {
-                                        copyToClipboard(
-                                            window.location.href
-                                        );
+                                    <a href={window.location.href} onClick={(e) => {
+                                        e.preventDefault();
+                                        copyToClipboard(window.location.href);
                                         toast.info('Copied Product\'s Link Successfully!')
                                     }}>
                                         Copy Product Link

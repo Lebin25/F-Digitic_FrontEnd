@@ -19,7 +19,7 @@ const Header = () => {
     const [total, setTotal] = useState(null)
     const productState = useSelector(state => state?.product?.product)
     const [productOpt, setProductOpt] = useState([])
-    const [paginate, setPaginate] = useState(true);
+    const [paginate] = useState(true);
     const navigate = useNavigate();
 
     const getTokenFromLocalStorage = localStorage.getItem('customer') ? JSON.parse(localStorage.getItem('customer')) : null
